@@ -1,6 +1,7 @@
 import '@lottiefiles/lottie-player'
 import type { LottiePlayer } from '@lottiefiles/lottie-player'
 import { fetchLottie } from 'dotlottie-player-core'
+import { openFilePicker } from './utils'
 
 const app = document.querySelector<HTMLButtonElement>('#app')!
 
@@ -8,7 +9,11 @@ let inputUrl = document.createElement('input')
 let buttonUpdate = document.createElement('button')
 let player = document.createElement('lottie-player') as LottiePlayer
 
-export async function setAnimation(url: string) {
+export async function setAnimation(url: string | undefined) {
+  if (!url) {
+    return
+  }
+
   const animationData = await fetchLottie(url)
 
   console.log(animationData)
@@ -23,7 +28,7 @@ export async function initApp() {
     id: 'url',
     value:
       'https://assets10.lottiefiles.com/dotlotties/dlf10_FBr6YSQU8K.lottie',
-    placeholder: 'Link to .lottie or .josn file...',
+    placeholder: 'Link to .lottie or .json file...',
     style: 'width: 100%;',
   })
 
@@ -31,7 +36,7 @@ export async function initApp() {
     id: 'update',
     type: 'button',
     innerText: 'Fetch',
-    style: 'margin-top: 10px',
+    style: 'margin: 10px',
     onclick: () => setAnimation(inputUrl.value),
   })
 
@@ -43,7 +48,20 @@ export async function initApp() {
     style: 'width: 320px; margin: 0 auto',
   })
 
-  app.append(inputUrl, document.createElement('br'), buttonUpdate, player)
+  const pickFileButton = Object.assign(document.createElement('button'), {
+    style: 'margin: 10px',
+    innerText: 'Open local file...',
+    onclick: () => openFilePicker().then((url) => setAnimation(url)),
+  })
+
+  app.append(
+    inputUrl,
+    document.createElement('br'),
+    buttonUpdate,
+    (document.createElement('span').innerHTML = 'or'),
+    pickFileButton,
+    player
+  )
 
   setAnimation(inputUrl.value)
 }
