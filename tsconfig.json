@@ -1,7 +1,7 @@
 {
   "compilerOptions": {
     "target": "ES2022",
-    "module": "CommonJS",
+    "module": "ESNext",
     "lib": ["dom", "es6", "ES2022", "esnext.asynciterable"],
     "skipLibCheck": true,
     "sourceMap": true,

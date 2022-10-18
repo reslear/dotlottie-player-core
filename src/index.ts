@@ -1,73 +1,8 @@
-import JSZip from 'jszip'
+import type { LottieJson, LottieJsonAsset } from './types'
+import { isBytesZip, parseManifest } from './utils'
+import { UnZip, unZip } from './zip'
 
-interface DotLottieAnimation {
-  id: string
-  mode: string
-  direction: string
-}
-interface DotLottieManifest {
-  animations: DotLottieAnimation[]
-  author: string
-  description: string
-  name: string
-  version: string
-  generator: string
-  keywords: string[]
-}
-
-interface LottieJsonAsset {
-  p: string
-  e: number
-}
-interface LottieJson {
-  assets: LottieJsonAsset[]
-}
-
-async function parseManifest(data: string) {
-  const manifest: DotLottieManifest = JSON.parse(data)
-
-  if (!('animations' in manifest)) {
-    throw new Error('Manifest not found')
-  }
-
-  if (manifest.animations.length === 0) {
-    throw new Error('No animations listed in the manifest')
-  }
-
-  return manifest
-}
-
-async function unZipDotLottieManifest(zip: JSZip) {
-  const manifestFile = zip.file('manifest.json')
-
-  if (!manifestFile) {
-    throw new Error('manifest.json not found')
-  }
-
-  const data = await manifestFile.async('string')
-  const manifest = await parseManifest(data)
-
-  return manifest
-}
-
-async function prepareLottieAnimation(animationId: string, zip: JSZip) {
-  const animationFile = zip.file(`animations/${animationId}.json`)
-
-  if (!animationFile) {
-    throw new Error(`animation id ${animationId} not found`)
-  }
-
-  const data = await animationFile.async('string')
-
-  // TODO: parse and check file is animation
-  // TODO: lottie type
-  const lottieJson = JSON.parse(data) as LottieJson
-  const lottie = await prepareLottieAssets(lottieJson, zip)
-
-  return lottie
-}
-
-async function prepareLottieAssets(lottieJson: LottieJson, zip: JSZip) {
+async function prepareLottieAssets(lottieJson: LottieJson, dotLottie: UnZip) {
   if (!('assets' in lottieJson)) {
     return lottieJson
   }
@@ -76,14 +11,14 @@ async function prepareLottieAssets(lottieJson: LottieJson, zip: JSZip) {
     if (!asset.p) {
       return asset
     }
-    if (zip.file(`images/${asset.p}`) == null) {
+    if (dotLottie.read(`images/${asset.p}`) == null) {
       return asset
     }
 
     const assetFileExtension = asset.p.split('.').pop() || ''
 
     // TODO: maybe fetch external image?
-    const assetB64 = await zip.file(`images/${asset.p}`)!.async('base64')
+    const assetB64 = await dotLottie.readB64(`images/${asset.p}`)
     const isSvg = ['svg+xml', 'svg'].includes(assetFileExtension)
 
     Object.assign(asset, {
@@ -105,13 +40,17 @@ async function prepareLottieAssets(lottieJson: LottieJson, zip: JSZip) {
   return lottieJson
 }
 
-export async function unZipDotLottie(response: any) {
-  const zip = await JSZip.loadAsync(response)
-
-  const manifest = await unZipDotLottieManifest(zip)
+export async function unZipDotLottie(response: ArrayBuffer) {
+  const dotLottie = await unZip(response)
+  const manifest = parseManifest(dotLottie.read('manifest.json'))
 
   const animations = await Promise.all(
-    manifest.animations.map((a) => prepareLottieAnimation(a.id, zip))
+    manifest.animations.map((a) => {
+      const lottieJson: LottieJson = JSON.parse(
+        dotLottie.read(`animations/${a.id}.json`)
+      )
+      return prepareLottieAssets(lottieJson, dotLottie)
+    })
   )
 
   return {
@@ -120,31 +59,17 @@ export async function unZipDotLottie(response: any) {
   }
 }
 
-async function fetchUrl(url: string, jsonFlag: boolean) {
-  const response = fetch(url, {
-    //mode: 'no-cors',
-  })
-
-  if (jsonFlag) {
-    return await response.then((res) => res.json())
-  }
-
-  const blob = await response.then((res) => res.blob())
-
-  return blob
-}
-
 export async function fetchLottie(url: string) {
-  const fileFormat = url.split('.').pop()?.toLowerCase()
-  const isJson = fileFormat === 'json'
+  const bytes = await fetch(url).then((r) => r.arrayBuffer())
 
-  const response = await fetchUrl(url, isJson)
-
-  if (isJson) {
-    return response as object
+  if (isBytesZip(bytes)) {
+    const { animations } = await unZipDotLottie(bytes)
+    return animations[0]
   }
 
-  const { animations } = await unZipDotLottie(response)
-
-  return animations[0]
+  /**
+   * @see https://stackoverflow.com/a/60921969
+   */
+  // TODO: check is correct lottie object
+  return JSON.parse(new TextDecoder().decode(bytes)) as LottieJson
 }

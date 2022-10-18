@@ -14,12 +14,12 @@ export async function setAnimation(url: string | undefined) {
     return
   }
 
-  const animationData = await fetchLottie(url)
+  const animation = await fetchLottie(url)
 
-  console.log(animationData)
+  console.log(animation)
 
-  if (animationData) {
-    player.load(animationData)
+  if (animation) {
+    player.load(animation)
   }
 }
 
