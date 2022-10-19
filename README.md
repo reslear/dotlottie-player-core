@@ -27,17 +27,33 @@ pnpm add @reslear/dotlottie-player-core
 
 ### fetchLottie
 
-fetch request for get `.lottie` or `.json` file and parse to lottie json.
+fetch method for get animation and parse to lottie json.
 
 ```ts
 import { fetchLottie } from '@reslear/dotlottie-player-core'
 
-const lottieJson = await fetchLottie(url)
+const lottieJson = await fetchLottie('/my-animation.lottie')
 
 // {"v":"5.6.8","fr":24,"ip":0,"op":144,"w":2161,"h"...}
 ```
 
-also support [Base64 Data URI](https://developer.mozilla.org/en-US/docs/Web/HTTP/Basics_of_HTTP/Data_URLs): `data:application/json;base64,<base64>`
+#### Arguments:
+
+1. **`url`** - path to `.lottie`, `.json` animation file
+
+also support [base64 data URI](https://developer.mozilla.org/en-US/docs/Web/HTTP/Basics_of_HTTP/Data_URLs)
+
+```ts
+fetchLottie('data:application/json;base64,<base64>')
+```
+
+2. **`fetchOptions`** - Fetch API [options](https://developer.mozilla.org/en-US/docs/Web/API/fetch#options)
+
+```ts
+fetchLottie(url, {
+  mode: 'no-cors',
+})
+```
 
 ## Inspired
 
