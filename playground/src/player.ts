@@ -1,6 +1,6 @@
 import '@lottiefiles/lottie-player'
 import type { LottiePlayer } from '@lottiefiles/lottie-player'
-import { fetchLottie } from 'dotlottie-player-core'
+import { fetchLottie } from '@reslear/dotlottie-player-core'
 import { openFilePicker } from './utils'
 
 const app = document.querySelector<HTMLButtonElement>('#app')!

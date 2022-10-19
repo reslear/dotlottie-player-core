@@ -18,12 +18,12 @@ importers:
   playground:
     specifiers:
       '@lottiefiles/lottie-player': ^1.5.7
-      dotlottie-player-core: workspace:^1.0.0
+      '@reslear/dotlottie-player-core': workspace:*
       typescript: ^4.6.4
       vite: ^3.1.0
     dependencies:
       '@lottiefiles/lottie-player': 1.5.7
-      dotlottie-player-core: link:..
+      '@reslear/dotlottie-player-core': link:..
     devDependencies:
       typescript: 4.8.4
       vite: 3.1.8
