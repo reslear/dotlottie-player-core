@@ -8,13 +8,19 @@ const app = document.querySelector<HTMLButtonElement>('#app')!
 let inputUrl = document.createElement('input')
 let buttonUpdate = document.createElement('button')
 let player = document.createElement('lottie-player') as LottiePlayer
+let time = document.createElement('div')
 
 export async function setAnimation(url: string | undefined) {
   if (!url) {
     return
   }
 
+  const start = window.performance.now()
+
   const animation = await fetchLottie(url)
+
+  const end = window.performance.now()
+  time.innerHTML = `fetching - <b>${Math.round(end - start)}<b>ms`
 
   console.log(animation)
 
@@ -60,7 +66,8 @@ export async function initApp() {
     buttonUpdate,
     (document.createElement('span').innerHTML = 'or'),
     pickFileButton,
-    player
+    player,
+    time
   )
 
   setAnimation(inputUrl.value)
