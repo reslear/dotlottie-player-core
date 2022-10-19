@@ -4,7 +4,7 @@ Only fetching and parse functions
 
 ![](./splash.png)
 
-🕹 **LIVE** - https://dotlottie-player-core-playground-x65a.vercel.app/
+🕹 [**LIVE**](https://dotlottie-player-core-playground.vercel.app)
 
 ## inspired
 
