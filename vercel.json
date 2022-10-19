@@ -1,0 +1,7 @@
+{
+  "buildCommand": "next build",
+  "outputDirectory": "playground/dist",
+  "github": {
+    "silent": true
+  }
+}
