@@ -1,5 +1,5 @@
 import type { LottieJson, LottieJsonAsset } from './types'
-import { isBytesZip, parseManifest } from './utils'
+import { fetchRequest, isBytesZip, parseManifest } from './utils'
 import { UnZip, unZip } from './zip'
 
 async function prepareLottieAssets(lottieJson: LottieJson, dotLottie: UnZip) {
@@ -59,11 +59,11 @@ export async function unZipDotLottie(response: ArrayBuffer) {
   }
 }
 
-export async function fetchLottie(url: string) {
-  const bytes = await fetch(url).then((r) => r.arrayBuffer())
+export async function fetchLottie(url: string, fetchOptions?: object) {
+  const response = await fetchRequest(url, fetchOptions)
 
-  if (isBytesZip(bytes)) {
-    const { animations } = await unZipDotLottie(bytes)
+  if (isBytesZip(response)) {
+    const { animations } = await unZipDotLottie(response)
     return animations[0]
   }
 
@@ -71,5 +71,5 @@ export async function fetchLottie(url: string) {
    * @see https://stackoverflow.com/a/60921969
    */
   // TODO: check is correct lottie object
-  return JSON.parse(new TextDecoder().decode(bytes)) as LottieJson
+  return JSON.parse(new TextDecoder().decode(response)) as LottieJson
 }

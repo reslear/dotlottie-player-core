@@ -1,5 +1,8 @@
 import { strFromU8, unzip, type Unzipped } from 'fflate'
 
+/**
+ * @see https://stackoverflow.com/a/66046176
+ */
 async function base64fromU8(data: Uint8Array) {
   const base64url = await new Promise((resolve) => {
     const reader = new FileReader()

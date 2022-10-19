@@ -21,3 +21,10 @@ export function isBytesZip(bytes: ArrayBuffer) {
   const b = new Uint8Array(bytes, 0, 32)
   return b[0] === 0x50 && b[1] === 0x4b && b[2] === 0x03 && b[3] === 0x04
 }
+
+export async function fetchRequest(url: string, fetchOptions?: object) {
+  // throw is bad url/request
+  return await fetch(new URL(url).href, fetchOptions).then((r) =>
+    r.arrayBuffer()
+  )
+}
