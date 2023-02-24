@@ -1,11 +1,11 @@
-import { defineConfig } from "tsup"
+import { defineConfig } from 'tsup'
 
 export default defineConfig((options) => {
   return {
-    format: ["cjs", "esm"],
+    format: ['cjs', 'esm'],
     dts: true,
-    minify: !options.watch,
-    entry: ["src/index.ts"],
+    minify: false,
+    entry: ['src/index.ts'],
     splitting: false,
     sourcemap: true,
     clean: true,
