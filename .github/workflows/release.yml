@@ -1,40 +1,47 @@
-name: Changesets
+# from https://github.com/vueuse/vueuse/blob/main/.github/workflows/publish.yml
+
+name: Release
+
+permissions:
+  id-token: write
+  contents: write
+
 on:
   push:
+    tags:
+      - v*
     branches:
       - master
   workflow_dispatch:
 
-env:
-  CI: true
-  PNPM_CACHE_FOLDER: .pnpm-store
 jobs:
-  version:
-    timeout-minutes: 15
+  publish-npm:
     runs-on: ubuntu-latest
     steps:
-      - name: checkout code repository
+      - name: Checkout
         uses: actions/checkout@v3
         with:
           fetch-depth: 0
-      - name: setup node.js
+
+      - name: Install pnpm
+        uses: pnpm/action-setup@v2
+
+      - name: Use Node.js v18
         uses: actions/setup-node@v3
         with:
-          node-version: 14
-      - name: install pnpm
-        run: npm i pnpm@latest -g
-      - name: Setup npmrc
-        run: echo "//registry.npmjs.org/:_authToken=${{ secrets.NPM_TOKEN }}" > .npmrc
-      - name: setup pnpm config
-        run: pnpm config set store-dir $PNPM_CACHE_FOLDER
-      - name: install dependencies
-        run: pnpm install
-      - name: create and publish versions
-        uses: changesets/action@v1
-        with:
-          version: pnpm ci:version
-          commit: "chore: update versions"
-          title: "chore: update versions"
-          publish: pnpm ci:publish
+          node-version: 18
+          registry-url: https://registry.npmjs.org/
+          cache: pnpm
+
+      - run: pnpm install
+
+      - run: npx changelogithub --no-group
+        continue-on-error: true
         env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GITHUB_TOKEN: ${{secrets.GITHUB_TOKEN}}
+
+      - run: pnpm run publish:ci
+        env:
+          NODE_AUTH_TOKEN: ${{secrets.NPM_TOKEN}}
+          NPM_CONFIG_PROVENANCE: true
+          NODE_OPTIONS: --max-old-space-size=6144
