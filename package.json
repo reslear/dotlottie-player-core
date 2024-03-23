@@ -2,6 +2,10 @@
   "name": "@reslear/dotlottie-player-core",
   "version": "0.0.5",
   "description": "dotlottie player core library",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/reslear/dotlottie-player-core.git"
+  },
   "keywords": [
     "dotlottie",
     "lottie",
