@@ -3,9 +3,9 @@
 name: Release
 
 permissions:
+  contents: read
   id-token: write
-  contents: write
-
+  
 on:
   push:
     tags:
@@ -42,7 +42,7 @@ jobs:
         env:
           GITHUB_TOKEN: ${{secrets.GITHUB_TOKEN}}
 
-      - run: pnpm publish
+      - run: pnpm publish --access public --no-git-checks
         env:
           NODE_AUTH_TOKEN: ${{secrets.NPM_TOKEN}}
           NPM_CONFIG_PROVENANCE: true
