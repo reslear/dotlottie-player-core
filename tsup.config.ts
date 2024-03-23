@@ -1,5 +1,4 @@
 import { defineConfig } from 'tsup'
-import { copyFileSync } from 'fs'
 
 export default defineConfig({
   format: ['cjs', 'esm'],
