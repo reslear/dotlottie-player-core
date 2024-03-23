@@ -25,7 +25,8 @@
   "scripts": {
     "build": "tsup",
     "dev": "tsup --watch",
-    "prepublishOnly": "pnpm build"
+    "prepublishOnly": "pnpm build",
+    "ci:publish": "pnpm publish -r"
   },
   "dependencies": {
     "fflate": "^0.7.4"
