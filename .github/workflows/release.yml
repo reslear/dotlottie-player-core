@@ -43,7 +43,7 @@ jobs:
 
       - run: pnpm install
 
-      - run: pnpm add -D semantic-release @semantic-release/commit-analyzer @semantic-release/release-notes-generator @semantic-release/changelog @semantic-release/github @semantic-release/git @colbyfayock/semantic-release-pnpm
+      - run: pnpm add -D semantic-release @semantic-release/commit-analyzer @semantic-release/release-notes-generator @semantic-release/changelog @semantic-release/github @semantic-release/git semantic-release-pnpm
 
       - name: Release
         env:
