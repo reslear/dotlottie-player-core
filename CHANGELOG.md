@@ -1,3 +1,11 @@
+## [1.0.1](https://github.com/reslear/dotlottie-player-core/compare/v1.0.0...v1.0.1) (2024-03-24)
+
+
+### Bug Fixes
+
+* don't change next release ([23a2b97](https://github.com/reslear/dotlottie-player-core/commit/23a2b97fc72b022813d3b8419f7f163a82b4ec5d))
+* tsconfig ([95d47ea](https://github.com/reslear/dotlottie-player-core/commit/95d47eaf7c88df514aec0a72e4ce037ebce4b1ef))
+
 # 1.0.0 (2024-03-24)
 
 
