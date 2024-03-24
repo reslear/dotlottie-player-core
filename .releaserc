@@ -6,7 +6,12 @@
     "@semantic-release/commit-analyzer",
     "@semantic-release/release-notes-generator",
     "@semantic-release/changelog",
-    "@colbyfayock/semantic-release-pnpm",
+    [
+      "@colbyfayock/semantic-release-pnpm",
+      {
+        "publishBranch": "main"
+      }
+    ],
     "@semantic-release/git",
     "@semantic-release/github"
   ]
