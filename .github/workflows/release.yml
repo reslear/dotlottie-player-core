@@ -2,20 +2,16 @@
 
 name: Release
 
-permissions:
-  contents: read
-  id-token: write
-  pull-requests: write
-  issues: write
-  repository-projects: write
-  
 on:
   push:
     tags:
       - v*
     branches:
-      - master
+      - main
   workflow_dispatch:
+
+permissions:
+  contents: write
 
 jobs:
   publish-npm:
