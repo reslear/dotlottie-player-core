@@ -1,3 +1,10 @@
+## [0.0.9](https://github.com/reslear/dotlottie-player-core/compare/v0.0.8...v0.0.9) (2024-03-24)
+
+
+### Bug Fixes
+
+* pnpm release ([62f4146](https://github.com/reslear/dotlottie-player-core/commit/62f41464c014b017f3f86c2c084ee2ceda73d730))
+
 ## [0.0.8](https://github.com/reslear/dotlottie-player-core/compare/v0.0.7...v0.0.8) (2024-03-24)
 
 
