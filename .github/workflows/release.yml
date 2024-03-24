@@ -5,6 +5,9 @@ name: Release
 permissions:
   contents: read
   id-token: write
+  pull-requests: write
+  issues: write
+  repository-projects: write
   
 on:
   push:
