@@ -37,6 +37,8 @@ jobs:
 
       - run: pnpm install
 
+      - run: pnpm add -D @semantic-release/commit-analyzer @semantic-release/release-notes-generator @semantic-release/changelog @semantic-release/github @semantic-release/git @colbyfayock/semantic-release-pnpm
+
       - name: Release
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
