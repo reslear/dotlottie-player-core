@@ -4,7 +4,8 @@ Only fetching and parse functions.
 
 [![npm](https://img.shields.io/npm/v/@reslear/dotlottie-player-core)](https://www.npmjs.com/package/@reslear/dotlottie-player-core)
 [![npm](https://img.shields.io/npm/dw/@reslear/dotlottie-player-core)](https://www.npmjs.com/package/@reslear/dotlottie-player-core)
-[![Dependents (via libraries.io)](https://img.shields.io/librariesio/dependents/npm/@reslear/dotlottie-player-core?0)](https://libraries.io/npm/@reslear%2Fdotlottie-player-core)
+![Libraries.io dependency status for latest release](https://img.shields.io/librariesio/release/npm/%40reslear%2Fdotlottie-player-core)
+![NPM Unpacked Size](https://img.shields.io/npm/unpacked-size/%40reslear%2Fdotlottie-player-core)
 [![install size](https://packagephobia.com/badge?p=@reslear/dotlottie-player-core)](https://packagephobia.com/result?p=@reslear/dotlottie-player-core)
 [![semantic-release](https://img.shields.io/badge/%20%20%F0%9F%93%A6%F0%9F%9A%80-semantic--release-e10079.svg)](https://github.com/semantic-release/semantic-release)
 
