@@ -1,3 +1,10 @@
+## [1.0.2](https://github.com/reslear/dotlottie-player-core/compare/v1.0.1...v1.0.2) (2024-03-25)
+
+
+### Bug Fixes
+
+* Update README.md ([8e4c5c2](https://github.com/reslear/dotlottie-player-core/commit/8e4c5c2773b1bf3280f806b5649b6550dbd2d39a))
+
 ## [1.0.1](https://github.com/reslear/dotlottie-player-core/compare/v1.0.0...v1.0.1) (2024-03-24)
 
 
