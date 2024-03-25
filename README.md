@@ -23,6 +23,7 @@ Only fetching and parse functions.
 - ⚙️ [Fetch API](https://developer.mozilla.org/en-US/docs/Web/API/Fetch_API) based
 - 📦 **CJS** and **ESM** support
 - 💪 fylly typed with **TypeScript**
+- 🏋️‍♀️ Lightweight with **~13kb** size
 
 ## Install
 
