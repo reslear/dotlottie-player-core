@@ -24,7 +24,7 @@ export function isBytesZip(bytes: ArrayBuffer) {
 
 export async function fetchRequest(url: string, fetchOptions?: object) {
   // throw is bad url/request
-  return await fetch(new URL(url).href, fetchOptions).then((r) =>
+  return await fetch(url, fetchOptions).then((r) =>
     r.arrayBuffer()
   )
 }
