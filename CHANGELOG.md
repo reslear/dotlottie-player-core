@@ -1,3 +1,10 @@
+## [1.0.3](https://github.com/reslear/dotlottie-player-core/compare/v1.0.2...v1.0.3) (2024-10-23)
+
+
+### Bug Fixes
+
+* avoid relative url ([1329243](https://github.com/reslear/dotlottie-player-core/commit/13292434188a0d2abf20051aec3262463a8f195c))
+
 ## [1.0.2](https://github.com/reslear/dotlottie-player-core/compare/v1.0.1...v1.0.2) (2024-03-25)
 
 
